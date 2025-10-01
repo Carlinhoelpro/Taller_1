@@ -1,0 +1,4 @@
+.BarraNavegacion li {
+  display: inline-block; /* O display: inline; */
+  margin-right: 10px; /* Añade un poco de espacio entre elementos */
+}
