@@ -1,0 +1,5 @@
+.hidden { display: none; }
+        form { max-width: 350px; margin: 2rem auto; padding: 1rem; border: 1px solid #ccc; border-radius: 8px; }
+        label { display: block; margin-top: 1rem; }
+        input, select, button { width: 100%; padding: 0.5rem; margin-top: 0.3rem; }
+    
