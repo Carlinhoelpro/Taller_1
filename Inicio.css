@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: 'Orbitron', Arial, sans-serif;
-    background: #fff8f0; /* Beige claro */
+    background: #fff8f0;
 }
 
 .navbar {
@@ -41,12 +41,12 @@ body {
 .BarraNavegacion li a.active,
 .BarraNavegacion li a:hover {
     color: #fffde4;
-    background: #ff9800; /* Naranja */
+    background: #ff9800; 
 }
 
 h1 {
     text-align: center;
-    color: #b22222; /* Rojo fuerte */
+    color: #b22222; 
     font-family: 'Orbitron', Arial, sans-serif;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -61,10 +61,10 @@ section {
     max-width: 900px;
     margin: 0 auto 3rem auto;
     padding: 2rem 1rem;
-    background: #fffbe6; /* Blanco/beige */
+    background: #fffbe6; 
     border-radius: 16px;
     box-shadow: 0 2px 16px #bfa76a33;
-    border-left: 8px solid #b22222; /* Rojo */
+    border-left: 8px solid #b22222; 
 }
 
 section.visible {
@@ -73,11 +73,11 @@ section.visible {
 }
 
 section#nosotros {
-    border-left: 8px solid #388e3c; /* Verde */
+    border-left: 8px solid #388e3c; 
 }
 
 section#contacto {
-    border-left: 8px solid #8B5C2A; /* Marrón */
+    border-left: 8px solid #8B5C2A; 
 }
 
 footer {
