@@ -34,6 +34,47 @@
         <p>Puedes escribirnos a <a href="mailto:contacto@tokyonoodles.cl">contacto@tokyonoodles.cl</a> o seguirnos en nuestras redes sociales.</p>
     </section>
 
+    <div class="usuario-container">
+        <button id="usuario-btn" class="usuario-btn" aria-label="Usuario">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+                <circle cx="18" cy="18" r="18" fill="#fffbe6" stroke="#b22222" stroke-width="2"/>
+                <circle cx="18" cy="14" r="6" fill="#ff9800"/>
+                <ellipse cx="18" cy="26" rx="9" ry="5" fill="#b22222"/>
+            </svg>
+        </button>
+        <div id="usuario-dropdown" class="usuario-dropdown hidden">
+            <div id="usuario-nombre" class="usuario-nombre hidden"></div>
+            <button id="perfil-btn" class="perfil-btn hidden">Mi perfil</button>
+            <form id="mainForm">
+                <label>¿Qué desea hacer?</label>
+                <select id="actionSelect" required>
+                    <option value="">Seleccione una opción</option>
+                    <option value="login">Iniciar sesión</option>
+                    <option value="register">Registrarse</option>
+                </select>
+                <div id="roleSection" class="hidden">
+                    <label>¿Cómo desea continuar?</label>
+                    <select id="roleSelect" required>
+                        <option value="">Selecciona un rol</option>
+                        <option value="user">Usuario</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div id="fieldsSection" class="hidden">
+                    <label for="email">Correo electrónico</label>
+                    <input type="email" id="email" name="email" required>
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password" required>
+                    <div id="rutSection" class="hidden">
+                        <label for="rut">RUT</label>
+                        <input type="text" id="rut" name="rut" placeholder="Ej: 12.345.678-9">
+                    </div>
+                </div>
+                <button type="submit" class="hidden" id="submitBtn">Continuar</button>
+            </form>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-title">Tokyo Noodles</div>
         <div class="footer-social">

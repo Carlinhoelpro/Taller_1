@@ -123,11 +123,113 @@ footer {
     color: #ffe0b2;
 }
 
+.usuario-container {
+    position: absolute;
+    top: 1.2rem;
+    right: 2rem;
+    z-index: 200;
+}
+.usuario-btn {
+    background: #fffbe6;
+    border: 2px solid #b22222;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: box-shadow 0.2s;
+    box-shadow: 0 2px 8px #b2222222;
+}
+.usuario-btn:hover {
+    box-shadow: 0 4px 16px #b2222233;
+}
+.usuario-dropdown {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background: #fffbe6;
+    border: 2px solid #b22222;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px #b2222222;
+    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+    min-width: 320px;
+    max-width: 95vw;
+    transition: opacity 0.2s;
+}
+.usuario-dropdown.hidden {
+    display: none;
+}
+#mainForm label, #mainForm select, #mainForm input, #mainForm button {
+    font-family: 'Orbitron', Arial, sans-serif;
+}
+#mainForm label {
+    margin-top: 0.7rem;
+    color: #b22222;
+    font-weight: bold;
+}
+#mainForm input, #mainForm select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 6px;
+    border: 1px solid #e0c9a6;
+    background: #fff;
+    font-size: 1rem;
+}
+#mainForm button[type="submit"] {
+    margin-top: 1.2rem;
+    background: #b22222;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+#mainForm button[type="submit"]:hover {
+    background: #ff9800;
+}
+.perfil-btn {
+    width: 100%;
+    margin-bottom: 1rem;
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.perfil-btn:hover {
+    background: #b22222;
+}
+.usuario-nombre {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #b22222;
+    margin-bottom: 0.7rem;
+}
+
 @media (max-width: 600px) {
     section {
         padding: 1rem 0.5rem;
     }
     h1 {
         font-size: 2rem;
+    }
+    .usuario-container {
+        right: 0.5rem;
+        top: 0.5rem;
+    }
+    .usuario-dropdown {
+        min-width: 220px;
+        padding: 1rem 0.5rem 1rem 0.5rem;
     }
 }
