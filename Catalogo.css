@@ -64,18 +64,15 @@ body {
 
 .productos-grid.ramen {
     grid-template-columns: repeat(4, 1fr);
-
 }
 
 .productos-grid.gyozas {
     grid-template-columns: repeat(3, 1fr);
-
 }
 
 .productos-grid.bebidas,
 .productos-grid.postres {
     grid-template-columns: repeat(4, 1fr);
-
 }
 
 .producto {
@@ -86,6 +83,7 @@ body {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
     height: 100%;
     box-shadow: 0 2px 8px #bfa76a33;
     transition: box-shadow 0.2s, transform 0.2s;
@@ -112,31 +110,27 @@ body {
     background: #eee;
 }
 
-.producto-info {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    justify-content: space-between;
-}
-
-.producto-nombre-desc {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-}
-
 .producto-nombre {
     font-size: 1.1rem;
     font-weight: bold;
-    margin: 0;
+    margin: 0.5rem 0 0.2rem 0;
+    text-align: center;
 }
 
 .producto-desc {
     font-size: 0.95rem;
     color: #555;
-    margin: 0;
+    margin: 0 0 0.7rem 0;
+    text-align: center;
+}
+
+.producto-precio-boton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    gap: 0.5rem;
 }
 
 .producto-precio {
