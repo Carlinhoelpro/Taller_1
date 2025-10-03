@@ -1,4 +1,133 @@
+body {
+    margin: 0;
+    font-family: 'Orbitron', Arial, sans-serif;
+    background: #fff8f0; /* Beige claro */
+}
+
+.navbar {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background: linear-gradient(90deg, #b22222 60%, #ff9800 100%); /* Rojo a naranja */
+    z-index: 100;
+    box-shadow: 0 2px 8px #0002;
+}
+
+.BarraNavegacion {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin: 0;
+    padding: 1rem 0;
+}
+
 .BarraNavegacion li {
-  display: inline-block; /* O display: inline; */
-  margin-right: 10px; /* Añade un poco de espacio entre elementos */
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.BarraNavegacion li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: color 0.2s, background 0.2s;
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+}
+
+.BarraNavegacion li a.active,
+.BarraNavegacion li a:hover {
+    color: #fffde4;
+    background: #ff9800; /* Naranja */
+}
+
+h1 {
+    text-align: center;
+    color: #b22222; /* Rojo fuerte */
+    font-family: 'Orbitron', Arial, sans-serif;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+}
+
+section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s, transform 0.8s;
+    max-width: 900px;
+    margin: 0 auto 3rem auto;
+    padding: 2rem 1rem;
+    background: #fffbe6; /* Blanco/beige */
+    border-radius: 16px;
+    box-shadow: 0 2px 16px #bfa76a33;
+    border-left: 8px solid #b22222; /* Rojo */
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+section#nosotros {
+    border-left: 8px solid #388e3c; /* Verde */
+}
+
+section#contacto {
+    border-left: 8px solid #8B5C2A; /* Marrón */
+}
+
+footer {
+    background: linear-gradient(90deg, #8B5C2A 60%, #b22222 100%); /* Marrón a rojo */
+    color: #fff;
+    padding: 2rem 1rem 1rem 1rem;
+    text-align: center;
+    font-family: 'Orbitron', Arial, sans-serif;
+    margin-top: 3rem;
+}
+
+.footer-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+
+.footer-social {
+    margin: 1rem 0;
+}
+
+.footer-social a {
+    display: inline-block;
+    margin: 0 0.5rem;
+    vertical-align: middle;
+}
+
+.footer-social svg {
+    width: 36px;
+    height: 36px;
+    fill: #fff;
+    transition: fill 0.2s;
+}
+
+.footer-social a:hover svg {
+    fill: #ff9800;
+}
+
+.footer-desc {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #ffe0b2;
+}
+
+@media (max-width: 600px) {
+    section {
+        padding: 1rem 0.5rem;
+    }
+    h1 {
+        font-size: 2rem;
+    }
 }
