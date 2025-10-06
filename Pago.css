@@ -1,0 +1,30 @@
+.pago-main {
+    max-width: 600px;
+    margin: 3rem auto;
+    background: #fffbe6;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px #bfa76a33;
+    padding: 2rem;
+    text-align: center;
+}
+.pago-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+.pago-btn {
+    background: #b22222;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.pago-btn:hover {
+    background: #ff9800;
+}
