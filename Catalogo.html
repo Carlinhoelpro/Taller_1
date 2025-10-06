@@ -6,12 +6,23 @@
     <title>TokyoNoodles - Catálogo</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="Catalogo.css">
+    <script src="Catalogo.js" defer></script>
 </head>
 <body>
     <header class="catalogo-header">
         <button class="volver-btn" onclick="window.location.href='Inicio.html'">← Volver</button>
         <h1>Catálogo TokyoNoodles</h1>
     </header>
+    <div class="filtro-container">
+        <button id="filtro-btn" class="filtro-btn">Filtro ▾</button>
+        <div id="filtro-menu" class="filtro-menu hidden">
+            <button class="filtro-opcion" data-filtro="todo">Todo</button>
+            <button class="filtro-opcion" data-filtro="ramen">Ramen</button>
+            <button class="filtro-opcion" data-filtro="gyozas">Gyozas</button>
+            <button class="filtro-opcion" data-filtro="bebidas">Bebidas</button>
+            <button class="filtro-opcion" data-filtro="postres">Postres</button>
+        </div>
+    </div>
     <main class="catalogo">
         <section class="categoria">
             <h2>Ramen</h2>

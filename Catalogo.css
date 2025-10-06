@@ -197,6 +197,61 @@ footer {
     color: #ffe0b2;
 }
 
+.filtro-container {
+    position: relative;
+    margin: 2rem 0 1rem 0;
+    text-align: right;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.filtro-btn {
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1.1rem;
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.filtro-btn:hover {
+    background: #b22222;
+}
+.filtro-menu {
+    position: absolute;
+    right: 0;
+    top: 110%;
+    background: #fffbe6;
+    border: 2px solid #b22222;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px #b2222222;
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+    z-index: 100;
+}
+.filtro-menu.hidden {
+    display: none;
+}
+.filtro-opcion {
+    background: none;
+    border: none;
+    color: #b22222;
+    font-size: 1.1rem;
+    padding: 0.7rem 1.2rem;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Orbitron', Arial, sans-serif;
+    transition: background 0.2s;
+}
+.filtro-opcion:hover {
+    background: #ff9800;
+    color: #fff;
+}
+
 @media (max-width: 600px) {
     .catalogo-header h1 {
         font-size: 1.3rem;
