@@ -47,3 +47,73 @@ function revealSectionsOnScroll() {
 }
 window.addEventListener('scroll', revealSectionsOnScroll);
 window.addEventListener('DOMContentLoaded', revealSectionsOnScroll);
+
+const usuarioBtn = document.getElementById('usuario-btn');
+const usuarioMenu = document.getElementById('usuario-menu');
+const loginBtn = document.getElementById('login-btn');
+const registerBtn = document.getElementById('register-btn');
+const perfilBtn = document.getElementById('perfil-btn');
+const usuarioModal = document.getElementById('usuario-modal');
+const usuarioModalClose = document.getElementById('usuario-modal-close');
+const usuarioForm = document.getElementById('usuario-form');
+const modalTitle = document.getElementById('modal-title');
+const tipoCuenta = document.getElementById('tipo-cuenta');
+const rutGroup = document.getElementById('rut-group');
+
+usuarioBtn.addEventListener('click', (e) => {
+    usuarioMenu.classList.toggle('hidden');
+    e.stopPropagation();
+});
+document.addEventListener('click', (e) => {
+    if (!usuarioMenu.contains(e.target) && !usuarioBtn.contains(e.target)) {
+        usuarioMenu.classList.add('hidden');
+    }
+});
+
+function resetUsuarioModal() {
+    usuarioForm.reset();
+    tipoCuenta.value = "";
+    rutGroup.classList.add('hidden');
+    document.getElementById('modal-rut').required = false;
+}
+loginBtn.addEventListener('click', () => {
+    modalTitle.textContent = "Iniciar sesión";
+    resetUsuarioModal();
+    usuarioModal.classList.remove('hidden');
+    usuarioMenu.classList.add('hidden');
+});
+registerBtn.addEventListener('click', () => {
+    modalTitle.textContent = "Registrar usuario";
+    resetUsuarioModal();
+    usuarioModal.classList.remove('hidden');
+    usuarioMenu.classList.add('hidden');
+});
+usuarioModalClose.addEventListener('click', () => {
+    usuarioModal.classList.add('hidden');
+});
+usuarioModal.addEventListener('click', (e) => {
+    if (e.target === usuarioModal) usuarioModal.classList.add('hidden');
+});
+
+tipoCuenta.addEventListener('change', () => {
+    if (tipoCuenta.value === 'admin') {
+        rutGroup.classList.remove('hidden');
+        document.getElementById('modal-rut').required = true;
+    } else {
+        rutGroup.classList.add('hidden');
+        document.getElementById('modal-rut').required = false;
+    }
+});
+
+perfilBtn.addEventListener('click', () => {
+    window.location.href = "PerfilUsuario.html";
+});
+
+usuarioForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    let email = document.getElementById('modal-email').value;
+    let nombre = email.split('@')[0];
+    localStorage.setItem('usuarioNombre', nombre);
+    usuarioModal.classList.add('hidden');
+    alert('¡Bienvenido, ' + nombre + '!');
+});
