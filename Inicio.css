@@ -315,6 +315,57 @@ footer {
     margin-bottom: 0.7rem;
 }
 
+.carrusel-container {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto 2rem auto;
+    overflow: hidden;
+    position: relative;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px #bfa76a33;
+}
+.carrusel {
+    display: flex;
+    transition: transform 0.7s cubic-bezier(.77,0,.18,1);
+    width: 100%;
+    position: relative;
+}
+.carrusel-img {
+    min-width: 100%;
+    height: 340px;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.7s;
+    position: absolute;
+    left: 0; top: 0;
+}
+.carrusel-img.active {
+    opacity: 1;
+    position: relative;
+}
+.carrusel-indicadores {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+}
+.carrusel-indicadores span {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff8f0cc;
+    border: 2px solid #b22222;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.carrusel-indicadores .active {
+    background: #ff9800;
+    border-color: #ff9800;
+}
+
 @media (max-width: 600px) {
     section {
         padding: 1rem 0.5rem;
