@@ -28,3 +28,95 @@
 .pago-btn:hover {
     background: #ff9800;
 }
+
+.usuario-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 400;
+}
+.usuario-modal.hidden {
+    display: none;
+}
+.usuario-modal-content {
+    background: #fffbe6;
+    border: 2px solid #b22222;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px #b2222222;
+    padding: 2rem 2rem 1.5rem 2rem;
+    min-width: 320px;
+    max-width: 95vw;
+    position: relative;
+    text-align: center;
+}
+.usuario-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #b22222;
+    cursor: pointer;
+}
+.entrega-opciones {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+.entrega-btn {
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.7rem 1.5rem;
+    font-size: 1.1rem;
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.entrega-btn:hover {
+    background: #b22222;
+}
+#despacho-form label {
+    margin-top: 0.7rem;
+    color: #b22222;
+    font-weight: bold;
+    display: block;
+}
+#despacho-form input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border-radius: 6px;
+    border: 1px solid #e0c9a6;
+    background: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.7rem;
+}
+.usuario-modal-submit {
+    margin-top: 1.2rem;
+    background: #b22222;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+.usuario-modal-submit:hover {
+    background: #ff9800;
+}
+#confirmacion-retiro, #confirmacion-despacho {
+    margin-top: 1.5rem;
+    font-size: 1.2rem;
+    color: #b22222;
+}

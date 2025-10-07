@@ -12,9 +12,29 @@
     <main class="pago-main">
     <h1>Portal de Pagos</h1>
     <div class="pago-opciones">
-        <button class="pago-btn" onclick="alert('Simulación de pago con tarjeta')">Pagar con Tarjeta</button>
-        <button class="pago-btn" onclick="alert('Simulación de pago con billetera virtual')">Pagar con Billetera Virtual</button>
+        <button class="pago-btn" id="pago-tarjeta">Pagar con Tarjeta</button>
+        <button class="pago-btn" id="pago-billetera">Pagar con Billetera Virtual</button>
     </div>
 </main>
+
+<!-- Modal de entrega -->
+<div id="entrega-modal" class="usuario-modal hidden">
+    <div class="usuario-modal-content">
+        <button class="usuario-modal-close" id="entrega-modal-close">&times;</button>
+        <h2>¿Cómo quieres recibir tu pedido?</h2>
+        <div class="entrega-opciones">
+            <button class="entrega-btn" id="retiro-btn">Retiro en local</button>
+            <button class="entrega-btn" id="despacho-btn">Despacho a domicilio</button>
+        </div>
+        <form id="despacho-form" class="hidden">
+            <label for="calle">Calle y número</label>
+            <input type="text" id="calle" name="calle" placeholder="Ej: Av. Siempre Viva 742" required>
+            <label for="comuna">Comuna</label>
+            <input type="text" id="comuna" name="comuna" placeholder="Ej: Santiago" required>
+            <button type="submit" class="usuario-modal-submit">Confirmar</button>
+        </form>
+
+    </div>
+</div>
 </body>
 </html>
