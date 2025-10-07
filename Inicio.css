@@ -8,11 +8,10 @@ body {
     position: sticky;
     top: 0;
     width: 100%;
-    background: linear-gradient(90deg, #b22222 60%, #ff9800 100%); /* Rojo a naranja */
+    background: linear-gradient(90deg, #b22222 60%, #ff9800 100%);
     z-index: 100;
     box-shadow: 0 2px 8px #0002;
 }
-
 .BarraNavegacion {
     display: flex;
     justify-content: center;
@@ -21,12 +20,6 @@ body {
     margin: 0;
     padding: 1rem 0;
 }
-
-.BarraNavegacion li {
-    display: inline-block;
-    margin-right: 10px;
-}
-
 .BarraNavegacion li a {
     color: #fff;
     text-decoration: none;
@@ -37,16 +30,15 @@ body {
     padding: 0.4rem 1rem;
     border-radius: 6px;
 }
-
 .BarraNavegacion li a.active,
 .BarraNavegacion li a:hover {
     color: #fffde4;
-    background: #ff9800; 
+    background: #ff9800;
 }
 
 h1 {
     text-align: center;
-    color: #b22222; 
+    color: #b22222;
     font-family: 'Orbitron', Arial, sans-serif;
     margin-top: 2rem;
     margin-bottom: 2rem;
@@ -54,73 +46,87 @@ h1 {
     letter-spacing: 2px;
 }
 
+.carrusel-container {
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: hidden;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.carrusel {
+    display: flex;
+    transition: transform 0.7s cubic-bezier(.77,0,.18,1);
+    width: 100vw;
+    position: relative;
+}
+.carrusel-img {
+    min-width: 100vw;
+    width: 100vw;
+    height: 340px;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.7s;
+    position: absolute;
+    left: 0; top: 0;
+    border-radius: 0;
+    box-shadow: none;
+}
+.carrusel-img.active {
+    opacity: 1;
+    position: relative;
+}
+.carrusel-indicadores {
+    position: absolute;
+    bottom: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+}
+.carrusel-indicadores span {
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff8f0cc;
+    border: 2px solid #b22222;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.carrusel-indicadores .active {
+    background: #ff9800;
+    border-color: #ff9800;
+}
+
 section {
     opacity: 0;
     transform: translateY(40px);
     transition: opacity 0.8s, transform 0.8s;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto 3rem auto;
-    padding: 2rem 1rem;
-    background: #fffbe6; 
-    border-radius: 16px;
-    box-shadow: 0 2px 16px #bfa76a33;
-    border-left: 8px solid #b22222; 
+    padding: 2.5rem 2rem;
+    background: none;
+    border-radius: 0;
+    box-shadow: none;
+    border-left: none;
 }
-
 section.visible {
     opacity: 1;
     transform: translateY(0);
 }
-
-section#nosotros {
-    border-left: 8px solid #388e3c; 
+section h2 {
+    font-size: 2.5rem;
+    color: #b22222;
+    margin-bottom: 1.2rem;
 }
-
-section#contacto {
-    border-left: 8px solid #8B5C2A; 
-}
-
-footer {
-    background: linear-gradient(90deg, #8B5C2A 60%, #b22222 100%); /* Marrón a rojo */
-    color: #fff;
-    padding: 2rem 1rem 1rem 1rem;
-    text-align: center;
-    font-family: 'Orbitron', Arial, sans-serif;
-    margin-top: 3rem;
-}
-
-.footer-title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    letter-spacing: 2px;
-}
-
-.footer-social {
-    margin: 1rem 0;
-}
-
-.footer-social a {
-    display: inline-block;
-    margin: 0 0.5rem;
-    vertical-align: middle;
-}
-
-.footer-social svg {
-    width: 36px;
-    height: 36px;
-    fill: #fff;
-    transition: fill 0.2s;
-}
-
-.footer-social a:hover svg {
-    fill: #ff9800;
-}
-
-.footer-desc {
-    margin-top: 1rem;
-    font-size: 1.1rem;
-    color: #ffe0b2;
+section p {
+    font-size: 1.35rem;
+    line-height: 1.7;
 }
 
 .usuario-container {
@@ -144,22 +150,6 @@ footer {
 }
 .usuario-btn:hover {
     box-shadow: 0 4px 16px #b2222233;
-}
-.usuario-dropdown {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background: #fffbe6;
-    border: 2px solid #b22222;
-    border-radius: 16px;
-    box-shadow: 0 4px 24px #b2222222;
-    padding: 1.5rem 1.2rem 1.2rem 1.2rem;
-    min-width: 320px;
-    max-width: 95vw;
-    transition: opacity 0.2s;
-}
-.usuario-dropdown.hidden {
-    display: none;
 }
 .usuario-menu {
     position: absolute;
@@ -194,7 +184,6 @@ footer {
 .usuario-menu-btn:hover {
     background: #b22222;
 }
-
 .usuario-modal {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -259,113 +248,45 @@ footer {
 .usuario-modal-submit:hover {
     background: #ff9800;
 }
-#mainForm label, #mainForm select, #mainForm input, #mainForm button {
-    font-family: 'Orbitron', Arial, sans-serif;
-}
-#mainForm label {
-    margin-top: 0.7rem;
-    color: #b22222;
-    font-weight: bold;
-}
-#mainForm input, #mainForm select {
-    width: 100%;
-    padding: 0.5rem;
-    margin-top: 0.3rem;
-    border-radius: 6px;
-    border: 1px solid #e0c9a6;
-    background: #fff;
-    font-size: 1rem;
-}
-#mainForm button[type="submit"] {
-    margin-top: 1.2rem;
-    background: #b22222;
+
+footer {
+    background: linear-gradient(90deg, #8B5C2A 60%, #b22222 100%);
     color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0.6rem 1.2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-#mainForm button[type="submit"]:hover {
-    background: #ff9800;
-}
-.perfil-btn {
-    width: 100%;
-    margin-bottom: 1rem;
-    background: #ff9800;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 0.6rem 1.2rem;
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.perfil-btn:hover {
-    background: #b22222;
-}
-.usuario-nombre {
+    padding: 2rem 1rem 1rem 1rem;
     text-align: center;
-    font-size: 1.2rem;
+    font-family: 'Orbitron', Arial, sans-serif;
+    margin-top: 3rem;
+}
+.footer-title {
+    font-size: 2rem;
     font-weight: bold;
-    color: #b22222;
-    margin-bottom: 0.7rem;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+}
+.footer-social {
+    margin: 1rem 0;
+}
+.footer-social a {
+    display: inline-block;
+    margin: 0 0.5rem;
+    vertical-align: middle;
+}
+.footer-social svg {
+    width: 36px;
+    height: 36px;
+    fill: #fff;
+    transition: fill 0.2s;
+}
+.footer-social a:hover svg {
+    fill: #ff9800;
+}
+.footer-desc {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    color: #ffe0b2;
 }
 
-.carrusel-container {
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto 2rem auto;
-    overflow: hidden;
-    position: relative;
-    border-radius: 18px;
-    box-shadow: 0 2px 16px #bfa76a33;
-}
-.carrusel {
-    display: flex;
-    transition: transform 0.7s cubic-bezier(.77,0,.18,1);
-    width: 100%;
-    position: relative;
-}
-.carrusel-img {
-    min-width: 100%;
-    height: 340px;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 0.7s;
-    position: absolute;
-    left: 0; top: 0;
-}
-.carrusel-img.active {
-    opacity: 1;
-    position: relative;
-}
-.carrusel-indicadores {
-    position: absolute;
-    bottom: 18px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
-}
-.carrusel-indicadores span {
-    display: block;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #fff8f0cc;
-    border: 2px solid #b22222;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-.carrusel-indicadores .active {
-    background: #ff9800;
-    border-color: #ff9800;
-}
-
+/* --- Responsividad --- */
 @media (max-width: 600px) {
     section {
         padding: 1rem 0.5rem;
@@ -377,7 +298,7 @@ footer {
         right: 0.5rem;
         top: 0.5rem;
     }
-    .usuario-dropdown {
+    .usuario-modal-content {
         min-width: 220px;
         padding: 1rem 0.5rem 1rem 0.5rem;
     }
