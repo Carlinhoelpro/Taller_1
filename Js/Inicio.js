@@ -106,7 +106,7 @@ tipoCuenta.addEventListener('change', () => {
 });
 
 perfilBtn.addEventListener('click', () => {
-    window.location.href = "PerfilUsuario.html";
+    window.location.href = "../Html/PerfilUsuario.html";
 });
 
 usuarioForm.addEventListener('submit', function(e) {
@@ -118,7 +118,6 @@ usuarioForm.addEventListener('submit', function(e) {
     alert('¡Bienvenido, ' + nombre + '!');
 });
 
-// Carrusel automático
 const carruselImgs = document.querySelectorAll('.carrusel-img');
 const carruselIndicadores = document.getElementById('carrusel-indicadores');
 let carruselIndex = 0;
@@ -144,7 +143,6 @@ function detenerCarrusel() {
     clearInterval(carruselInterval);
 }
 if (carruselImgs.length > 0) {
-    // Indicadores
     carruselImgs.forEach((_, i) => {
         let dot = document.createElement('span');
         dot.addEventListener('click', () => {
