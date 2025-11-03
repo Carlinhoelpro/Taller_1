@@ -45,7 +45,7 @@ CREATE TABLE pedidos (
     id_usuario INT,
     fecha_pedido DATETIME DEFAULT CURRENT_TIMESTAMP,
     estado VARCHAR(50) DEFAULT 'pendiente',
-    tipo_entrega VARCHAR(20) NOT NULL, -- 'local' o 'despacho'
+    tipo_entrega VARCHAR(20) NOT NULL,
     total DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario)
 );
