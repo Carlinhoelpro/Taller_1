@@ -218,5 +218,5 @@ app.get("/api/perfil", authMiddleware, async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 sequelize.sync({ alter: true }).then(() => {
-  app.listen(PORT, () => console.log(`✅ API ejecutándose en puerto ${PORT}`));
+  app.listen(PORT, () => console.log(`API ejecutándose en puerto ${PORT}`));
 });
