@@ -6,9 +6,12 @@
     <title>Pago</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Css/Pago.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" defer></script>
+    <script src="../Js/config.js" defer></script>
     <script src="../Js/Pago.js" defer></script>
 </head>
 <body>
+    
     <main class="pago-main">
     <h1>Portal de Pagos</h1>
     <div class="pago-opciones">
@@ -25,13 +28,7 @@
             <button class="entrega-btn" id="retiro-btn">Retiro en local</button>
             <button class="entrega-btn" id="despacho-btn">Despacho a domicilio</button>
         </div>
-        <form id="despacho-form" class="hidden">
-            <label for="calle">Calle y número</label>
-            <input type="text" id="calle" name="calle" placeholder="Ej: Av. Siempre Viva 742" required>
-            <label for="comuna">Comuna</label>
-            <input type="text" id="comuna" name="comuna" placeholder="Ej: Santiago" required>
-            <button type="submit" class="usuario-modal-submit">Confirmar</button>
-        </form>
+        <!-- Address form will be inserted dynamically when 'Despacho a domicilio' is selected -->
 
     </div>
 </div>
