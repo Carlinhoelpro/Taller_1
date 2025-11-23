@@ -109,13 +109,81 @@ perfilBtn.addEventListener('click', () => {
     window.location.href = "../Html/PerfilUsuario.html";
 });
 
-usuarioForm.addEventListener('submit', function(e) {
+usuarioForm.addEventListener('submit', async function(e) {
     e.preventDefault();
-    let email = document.getElementById('modal-email').value;
-    let nombre = email.split('@')[0];
-    localStorage.setItem('usuarioNombre', nombre);
-    usuarioModal.classList.add('hidden');
-    alert('¡Bienvenido, ' + nombre + '!');
+    const email = document.getElementById('modal-email').value;
+    const password = document.getElementById('modal-password').value;
+    const tipo = modalTitle.textContent || '';
+    const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || 'http://localhost:3000/api';
+
+    const allowedAdminRuts = (window.APP_CONFIG && window.APP_CONFIG.allowedAdminRuts) || ['123456789','213456789','192345678'];
+
+    const fallbackLocalLogin = (email) => {
+        const nombre = email.split('@')[0];
+        localStorage.setItem('usuarioNombre', nombre);
+        usuarioModal.classList.add('hidden');
+        alert('¡Bienvenido, ' + nombre + '! (modo offline)');
+    };
+
+    try {
+        if (modalTitle.textContent && modalTitle.textContent.toLowerCase().includes('registrar')) {
+            const tipoSeleccion = tipoCuenta.value;
+            if (tipoSeleccion === 'admin') {
+                const rutVal = document.getElementById('modal-rut').value || '';
+                const rutNorm = rutVal.replace(/\D/g, '');
+                if (!allowedAdminRuts.includes(rutNorm)) {
+                    alert('RUT no autorizado para crear cuenta administrador.');
+                    return;
+                }
+            }
+            const nombre = email.split('@')[0];
+            const payload = { nombre, apellido: '', correo: email, contrasena: password, telefono: '' };
+            const res = await fetch(apiBase + '/auth/register', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+            });
+            if (!res.ok) {
+                const err = await res.json().catch(() => ({}));
+                throw new Error(err.error || 'Registro fallido');
+            }
+            const loginRes = await fetch(apiBase + '/auth/login', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ correo: email, contrasena: password })
+            });
+            if (!loginRes.ok) throw new Error('Registro correcto pero login falló');
+            const loginData = await loginRes.json();
+            localStorage.setItem('token', loginData.token);
+            const perfilRes = await fetch(apiBase + '/perfil', { headers: { 'Authorization': 'Bearer ' + loginData.token } });
+            if (perfilRes.ok) {
+                const perfil = await perfilRes.json();
+                localStorage.setItem('usuarioNombre', (perfil.nombre || email.split('@')[0]));
+            } else {
+                localStorage.setItem('usuarioNombre', nombre);
+            }
+            usuarioModal.classList.add('hidden');
+            alert('Registro y login exitoso. ¡Bienvenido!');
+        } else {
+            const res = await fetch(apiBase + '/auth/login', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ correo: email, contrasena: password })
+            });
+            if (!res.ok) {
+                fallbackLocalLogin(email);
+                return;
+            }
+            const data = await res.json();
+            localStorage.setItem('token', data.token);
+            const perfilRes = await fetch(apiBase + '/perfil', { headers: { 'Authorization': 'Bearer ' + data.token } });
+            if (perfilRes.ok) {
+                const perfil = await perfilRes.json();
+                localStorage.setItem('usuarioNombre', (perfil.nombre || email.split('@')[0]));
+            } else {
+                localStorage.setItem('usuarioNombre', email.split('@')[0]);
+            }
+            usuarioModal.classList.add('hidden');
+            alert('Login exitoso. ¡Bienvenido!');
+        }
+    } catch (err) {
+        console.warn('Auth error:', err.message);
+        fallbackLocalLogin(email);
+    }
 });
 
 const carruselImgs = document.querySelectorAll('.carrusel-img');
