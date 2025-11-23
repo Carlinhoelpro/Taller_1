@@ -286,7 +286,6 @@ footer {
     color: #ffe0b2;
 }
 
-/* --- Responsividad --- */
 @media (max-width: 600px) {
     section {
         padding: 1rem 0.5rem;
