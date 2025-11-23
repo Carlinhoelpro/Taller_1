@@ -6,12 +6,21 @@
     <title>TokyoNoodles - Catálogo</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Css/Catalogo.css">
+    <script src="../Js/Carrito.js" defer></script>
+    <script src="../Js/CartBadge.js" defer></script>
     <script src="../Js/Catalogo.js" defer></script>
 </head>
 <body>
     <header class="catalogo-header">
-        <button class="volver-btn" onclick="window.location.href='Inicio.html'">← Volver</button>
-        <h1>Catálogo TokyoNoodles</h1>
+        <div style="display:flex;align-items:center;gap:1rem;">
+            <button class="volver-btn" onclick="window.location.href='Inicio.html'">← Volver</button>
+            <h1>Catálogo TokyoNoodles</h1>
+        </div>
+        <div class="catalogo-actions">
+            <button class="carrito-header-btn" onclick="window.location.href='Carrito.html'">
+                Carrito <span class="carrito-badge" style="display:none;background:#b22222;color:#fff;border-radius:50%;padding:0 6px;margin-left:.5rem;font-size:.9rem;"></span>
+            </button>
+        </div>
     </header>
     <div class="filtro-container">
         <button id="filtro-btn" class="filtro-btn">Filtro ▾</button>
@@ -32,10 +41,43 @@
                         <img src="../Imagenes/RamenShoyu.jpg" alt="Imagen de Ramen Shoyu">
                     </div>
                     <div class="producto-nombre">Ramen Shoyu</div>
-                    <div class="producto-desc">Es un caldo ligero en su textura, contiene pollo, dashi, salsa soja, y rayu</div>
+                    <div class="producto-desc">Caldo a base de salsa de soya, fideos, chashu y huevo cocido.</div>
                     <div class="producto-precio-boton">
                         <span class="producto-precio">$9.900</span>
-                        <button class="producto-boton">Agregar al carrito</button>
+                        <button class="producto-boton" data-nombre="Ramen Shoyu" data-precio="9900">+</button>
+                    </div>
+                </div>
+                <div class="producto">
+                    <div class="producto-img">
+                        <img src="../Imagenes/RamenMiso.jpeg" alt="Imagen de Ramen Miso">
+                    </div>
+                    <div class="producto-nombre">Ramen Miso</div>
+                    <div class="producto-desc">Ramen con base de miso, sabor intenso y toppings tradicionales.</div>
+                    <div class="producto-precio-boton">
+                        <span class="producto-precio">$9.900</span>
+                        <button class="producto-boton" data-nombre="Ramen Miso" data-precio="9900">+</button>
+                    </div>
+                </div>
+                <div class="producto">
+                    <div class="producto-img">
+                        <img src="../Imagenes/RamenShio.jpeg" alt="Imagen de Ramen Shio">
+                    </div>
+                    <div class="producto-nombre">Ramen Shio</div>
+                    <div class="producto-desc">Caldo ligero y salado, con mariscos y verduras frescas.</div>
+                    <div class="producto-precio-boton">
+                        <span class="producto-precio">$9.500</span>
+                        <button class="producto-boton" data-nombre="Ramen Shio" data-precio="9500">+</button>
+                    </div>
+                </div>
+                <div class="producto">
+                    <div class="producto-img">
+                        <img src="../Imagenes/RamenTokotsu.jpeg" alt="Imagen de Tonkotsu">
+                    </div>
+                    <div class="producto-nombre">Ramen Tonkotsu</div>
+                    <div class="producto-desc">Caldo cremoso de huesos de cerdo, con chashu y menma.</div>
+                    <div class="producto-precio-boton">
+                        <span class="producto-precio">$10.500</span>
+                        <button class="producto-boton" data-nombre="Ramen Tonkotsu" data-precio="10500">+</button>
                     </div>
                 </div>
             </div>

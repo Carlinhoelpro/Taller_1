@@ -3,6 +3,7 @@ function getCarrito() {
 }
 function setCarrito(carrito) {
     localStorage.setItem('carrito', JSON.stringify(carrito));
+    try { window.dispatchEvent(new Event('cartUpdated')); } catch (e) { /* ignore */ }
 }
 function renderCarrito() {
     const tbody = document.getElementById('carrito-body');
@@ -13,10 +14,10 @@ function renderCarrito() {
         const tr = document.createElement('tr');
         tr.innerHTML = `
             <td>${item.nombre}</td>
-            <td>
-                <button class="carrito-accion-btn" data-idx="${idx}" data-accion="sumar">+</button>
-                <input type="number" min="1" max="15" value="${item.cantidad}" class="carrito-cantidad-input" data-idx="${idx}">
-            </td>
+                    <td>
+                        <button class="carrito-accion-btn" data-idx="${idx}" data-accion="sumar">+</button>
+                        <input type="number" min="1" max="12" value="${item.cantidad}" class="carrito-cantidad-input" data-idx="${idx}">
+                    </td>
             <td>$${item.precio * item.cantidad}</td>
             <td>
                 <button class="carrito-accion-btn" data-idx="${idx}" data-accion="eliminar">Eliminar</button>
@@ -36,10 +37,10 @@ document.getElementById('carrito-body').addEventListener('click', function(e) {
     const accion = btn.getAttribute('data-accion');
     let carrito = getCarrito();
     if (accion === 'sumar') {
-        if (carrito[idx].cantidad < 15) {
+        if (carrito[idx].cantidad < 12) {
             carrito[idx].cantidad++;
         } else {
-            alert('No puedes agregar más de 15 unidades.');
+            alert('No hay stock suficiente');
         }
     } else if (accion === 'eliminar') {
         carrito.splice(idx, 1);
@@ -52,9 +53,9 @@ document.getElementById('carrito-body').addEventListener('input', function(e) {
         const idx = parseInt(e.target.getAttribute('data-idx'));
         let val = parseInt(e.target.value);
         if (isNaN(val) || val < 1) val = 1;
-        if (val > 15) {
-            alert('No puedes agregar más de 15 unidades.');
-            val = 15;
+        if (val > 12) {
+            alert('No hay stock suficiente');
+            val = 12;
         }
         let carrito = getCarrito();
         carrito[idx].cantidad = val;
@@ -86,7 +87,6 @@ document.getElementById('confirmar-compra').addEventListener('click', function()
     window.location.href = "Pago.html";
 });
 
-//Funcionalidad para PDF, solo simulación, hay que usar librerias y backend para que realmente funcione como está pensado, nota para el futuro
 document.getElementById('descargar-pdf').addEventListener('click', function() {
     alert('Funcionalidad de PDF no implementada aquí. Usa jsPDF o similar.');
 });
@@ -94,19 +94,21 @@ document.getElementById('enviar-correo').addEventListener('click', function() {
     alert('Funcionalidad de envío por correo no implementada aquí.');
 });
 
-// Ejemplo de función para agregar al carrito desde el catálogo
-function agregarAlCarrito(nombre, precio) {
+function agregarAlCarrito(nombre, precio, id) {
     let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     let idx = carrito.findIndex(item => item.nombre === nombre);
     if (idx >= 0) {
-        if (carrito[idx].cantidad < 15) {
+        if (carrito[idx].cantidad < 12) {
             carrito[idx].cantidad++;
         } else {
-            alert('No puedes agregar más de 15 unidades.');
+            alert('No hay stock suficiente');
         }
     } else {
-        carrito.push({ nombre, precio, cantidad: 1 });
+        const newItem = { nombre, precio, cantidad: 1 };
+        if (id) newItem.id_producto = id;
+        carrito.push(newItem);
     }
     localStorage.setItem('carrito', JSON.stringify(carrito));
+    try { window.dispatchEvent(new Event('cartUpdated')); } catch (e) {}
     alert('Producto agregado al carrito');
 }
