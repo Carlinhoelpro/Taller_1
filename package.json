@@ -1,28 +1,33 @@
 {
-  "name": "taller_1",
+  "name": "tokyonoodles",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start-api": "node src/Tokyo-api.js",
+    "start-server": "node Server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Carlinhoelpro/Taller_1.git"
+    "url": "git+https://github.com/Carlinhoelpro/TokyoNoodles.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "bugs": {
-    "url": "https://github.com/Carlinhoelpro/Taller_1/issues"
+    "url": "https://github.com/Carlinhoelpro/TokyoNoodles/issues"
   },
-  "homepage": "https://github.com/Carlinhoelpro/Taller_1#readme",
+  "homepage": "https://github.com/Carlinhoelpro/TokyoNoodles#readme",
   "dependencies": {
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "mysql2": "^3.15.3"
+    "mysql2": "^3.15.3",
+    "sequelize": "^6.32.1",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0"
   }
 }
