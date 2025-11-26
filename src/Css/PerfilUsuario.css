@@ -7,14 +7,17 @@ body {
     background: linear-gradient(90deg, #b22222 60%, #ff9800 100%);
     color: #fff;
     padding: 1.5rem 1rem 1rem 1rem;
-    text-align: center;
     position: relative;
     box-shadow: 0 2px 8px #0002;
+    display: flex; 
+    align-items: center;
+    justify-content: center;
 }
 .volver-btn {
     position: absolute;
     left: 1.5rem;
-    top: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
     background: #ff9800;
     color: #fff;
     border: none;
@@ -180,5 +183,12 @@ footer {
     }
     h1 {
         font-size: 2rem;
+    }
+    .volver-btn {
+        left: 0.5rem;
+        top: 0.5rem;
+        transform: none;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
     }
 }
