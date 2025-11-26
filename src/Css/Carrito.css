@@ -6,6 +6,34 @@
     box-shadow: 0 2px 16px #bfa76a33;
     padding: 2rem;
 }
+.carrito-header {
+    background: linear-gradient(90deg, #b22222 60%, #ff9800 100%);
+    color: #fff;
+    padding: 1.5rem 1rem 1rem 1rem;
+    position: relative;
+    box-shadow: 0 2px 8px #0002;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.volver-btn {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ff9800;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1.2rem;
+    font-size: 1rem;
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+    box-shadow: 0 2px 8px #0001;
+}
+.volver-btn:hover { background: #b22222; }
 .carrito-tabla {
     width: 100%;
     border-collapse: collapse;
@@ -102,3 +130,8 @@
     cursor: pointer;
 }
 .usuario-modal-submit:hover { background: #ff9800; }
+
+@media (max-width: 600px) {
+    .carrito-header h1 { font-size: 1.3rem; }
+    .volver-btn { left: 0.5rem; top: 0.5rem; transform: none; padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+}
