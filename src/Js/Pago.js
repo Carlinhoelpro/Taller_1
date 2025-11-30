@@ -113,7 +113,7 @@ async function processOrder(deliveryAddress) {
     if (!usuario) {
         alert('Debes estar registrado/iniciado sesión para completar la compra.');
         closeModal();
-        window.location.href = 'Inicio.html';
+        window.location.href = 'index.html';
         return;
     }
 
