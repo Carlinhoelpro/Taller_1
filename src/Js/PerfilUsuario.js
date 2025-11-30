@@ -29,7 +29,7 @@ function cargarHistorial() {
     const nombre = localStorage.getItem('usuarioNombre');
     if (!nombre) {
         alert('Debes estar registrado para ver el perfil.');
-        window.location.href = 'index.html';
+        window.location.href = '../../index.html';
         return;
     }
     const token = localStorage.getItem('token');

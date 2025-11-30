@@ -113,7 +113,7 @@ async function processOrder(deliveryAddress) {
     if (!usuario) {
         alert('Debes estar registrado/iniciado sesión para completar la compra.');
         closeModal();
-        window.location.href = 'index.html';
+        window.location.href = '../../index.html';
         return;
     }
 
@@ -208,7 +208,6 @@ async function processOrder(deliveryAddress) {
         console.warn('No fue posible generar PDF:', err.message);
     }
 
-    // show thank you message and 'Volver' button inside modal
     const thankYouHtml = `
         <div style="text-align:center;padding:1rem;">
             <h3>Gracias por la compra</h3>
