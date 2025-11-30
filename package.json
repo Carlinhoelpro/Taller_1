@@ -6,6 +6,8 @@
   "scripts": {
     "start-api": "node src/Tokyo-api.js",
     "start-server": "node Server.js",
+    "migrate-db": "node scripts/migrate-db.js",
+    "check-db": "node scripts/check-db-connection.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

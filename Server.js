@@ -76,8 +76,9 @@ app.get(
   "/auth/google/callback",
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
+    const nombre = (req.user && (req.user.nombre || req.user.email)) || 'Usuario';
     res.send(`
-      <h1>Bienvenido, ${req.user.displayName}</h1>
+      <h1>Bienvenido, ${nombre}</h1>
       <p>Login con Google completado.</p>
     `);
   }
@@ -101,7 +102,6 @@ app.get('/auth/logout', (req, res, next) => {
       });
     });
   } else {
-    // Fallback
     req.session.destroy(() => {
       res.clearCookie(process.env.SESSION_KEY || 'tokyo.sid');
       res.json({ message: 'Sesión cerrada' });
