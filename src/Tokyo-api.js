@@ -51,6 +51,8 @@ const Pedido = sequelize.define('Pedido', {
   id_pedido: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, field: 'id_pedido' },
   total: { type: DataTypes.FLOAT, field: 'total' },
   fecha: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'fecha_pedido' },
+  estado: { type: DataTypes.STRING, defaultValue: 'pendiente', field: 'estado' },
+  tipo_entrega: { type: DataTypes.STRING, field: 'tipo_entrega' },
 });
 
 const DetallePedido = sequelize.define('DetallePedido', {
@@ -131,6 +133,19 @@ const authMiddleware = (req, res, next) => {
 app.get('/api/productos', async (req, res) => {
   const productos = await Producto.findAll();
   res.json(productos);
+});
+
+app.get('/api/pedidos', authMiddleware, async (req, res) => {
+  try {
+    const pedidos = await Pedido.findAll({
+      where: { id_usuario: req.user.id },
+      include: [{ model: DetallePedido, include: [Producto] }],
+      order: [['fecha', 'DESC']],
+    });
+    res.json(pedidos);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.get('/api/productos/:id', async (req, res) => {

@@ -6,12 +6,14 @@
     <title>Perfil de Usuario</title>
     <link href="https://fonts.googleapis.com/css?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../Css/PerfilUsuario.css">
+    <script src="../Js/config.js" defer></script>
     <script src="../Js/PerfilUsuario.js" defer></script>
 </head>
 <body>
     <header class="perfil-header">
         <button class="volver-btn" onclick="window.location.href='../../index.html'">← Volver</button>
         <h1>Perfil de Usuario</h1>
+        <button class="cerrar-sesion-btn">Cerrar sesión</button>
     </header>
     <div class="perfil-container">
         <div class="perfil-img-box">
@@ -34,6 +36,7 @@
                             <th>Fecha</th>
                             <th>Pedido</th>
                             <th>Total</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
                     <tbody id="historial-body">

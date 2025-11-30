@@ -90,3 +90,21 @@ app.get('/me', (req, res) => {
     res.status(401).json({ error: 'No autenticado' });
   }
 });
+
+app.get('/auth/logout', (req, res, next) => {
+  if (req.logout) {
+    req.logout(function(err) {
+      if (err) return next(err);
+      req.session.destroy(() => {
+        res.clearCookie(process.env.SESSION_KEY || 'tokyo.sid');
+        res.json({ message: 'Sesión cerrada' });
+      });
+    });
+  } else {
+    // Fallback
+    req.session.destroy(() => {
+      res.clearCookie(process.env.SESSION_KEY || 'tokyo.sid');
+      res.json({ message: 'Sesión cerrada' });
+    });
+  }
+});

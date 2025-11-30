@@ -32,12 +32,21 @@ function cargarHistorial() {
         window.location.href = 'Inicio.html';
         return;
     }
+    const token = localStorage.getItem('token');
+    if (token) {
+        const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || 'http://localhost:3001/api';
+        fetch(apiBase + '/pedidos', { headers: { 'Authorization': 'Bearer ' + token } })
+        .then(res => res.json())
+        .then(pedidos => renderHistorial(pedidos))
+        .catch(() => renderHistorial([]));
+        return;
+    }
     const usuarioKey = 'historial_' + nombre;
     const historial = JSON.parse(localStorage.getItem(usuarioKey)) || [];
     const tbody = document.getElementById('historial-body');
     tbody.innerHTML = '';
     if (historial.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="3">No hay pedidos aún.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4">No hay pedidos aún.</td></tr>';
         return;
     }
     historial.forEach(p => {
@@ -83,4 +92,43 @@ document.getElementById('perfil-img-input').addEventListener('change', function(
 const imgGuardada = localStorage.getItem('perfilImg');
 if (imgGuardada) {
     document.getElementById('perfil-img').src = imgGuardada;
+}
+
+function renderHistorial(pedidos) {
+    const tbody = document.getElementById('historial-body');
+    tbody.innerHTML = '';
+    if (!pedidos || pedidos.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4">No hay pedidos aún.</td></tr>';
+        return;
+    }
+    pedidos.forEach(pedido => {
+        const tr = document.createElement('tr');
+        const fecha = new Date(pedido.fecha).toLocaleString();
+        let items = '';
+        if (pedido.items && Array.isArray(pedido.items)) {
+            items = pedido.items.map(it => `${it.nombre} x${it.cantidad}`).join(', ');
+        } else {
+            const detalles = pedido.DetallePedidos || pedido.DetallePedido || pedido.detallePedidos || pedido.DetallePedidoProductos || [];
+            items = detalles.map(d => {
+                const prod = d.Producto || d.producto || { nombre: 'Producto' };
+                return `${prod.nombre} x${d.cantidad}`;
+            }).join(', ');
+        }
+        const estado = pedido.estado || pedido.Estado || 'pendiente';
+        tr.innerHTML = `<td>${fecha}</td><td>${items}</td><td>$${pedido.total}</td><td>${estado}</td>`;
+        tbody.appendChild(tr);
+    });
+}
+
+const logoutBtn = document.querySelector('.cerrar-sesion-btn');
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', function() {
+        const serverBase = (window.APP_CONFIG && window.APP_CONFIG.serverBase) || 'http://localhost:3000';
+        fetch(serverBase + '/auth/logout', { method: 'GET', credentials: 'include' }).finally(() => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('usuarioNombre');
+            localStorage.removeItem('perfilImg');
+            window.location.href = '../../index.html';
+        });
+    });
 }
