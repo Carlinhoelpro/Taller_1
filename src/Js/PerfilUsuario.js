@@ -1,5 +1,5 @@
 function mostrarNombrePerfil() {
-    const apiBase = 'http://localhost:3000/api';
+    const apiBase = (window.APP_CONFIG && window.APP_CONFIG.apiBase) || 'http://localhost:3001/api';
     const token = localStorage.getItem('token');
     if (token) {
         fetch(apiBase + '/perfil', { headers: { 'Authorization': 'Bearer ' + token } })

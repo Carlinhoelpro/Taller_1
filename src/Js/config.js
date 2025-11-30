@@ -6,5 +6,5 @@
         '213456789',
         '192345678'
     ];
-    window.APP_CONFIG.apiBase = window.APP_CONFIG.apiBase || 'http://localhost:3000/api';
+    window.APP_CONFIG.apiBase = window.APP_CONFIG.apiBase || 'http://localhost:3001/api';
 })();

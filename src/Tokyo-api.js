@@ -1,172 +1,145 @@
-import express from "express";
-import { Sequelize, DataTypes } from "sequelize";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import bodyParser from "body-parser";
+const express = require('express');
+const { Sequelize, DataTypes } = require('sequelize');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-dotenv.config();
+dotenv.config({ path: process.env.DOTENV_PATH || './Datos.env' });
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors({ origin: process.env.CLIENT_ORIGIN || 'http://localhost:5500', credentials: true }));
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME || "tokyo_noodles",
-  process.env.DB_USER || "root",
-  process.env.DB_PASS || "TallerTokyoNoodles",
+  process.env.DB_NAME || 'tokyo_noodles',
+  process.env.DB_USER || 'root',
+  process.env.DB_PASS || 'TallerTokyoNoodles',
   {
-    host: process.env.DB_HOST || "localhost",
-    dialect: "mysql",
+    host: process.env.DB_HOST || 'localhost',
+    dialect: 'mysql',
     logging: false,
   }
 );
 
-const Usuario = sequelize.define("Usuario", {
+const Usuario = sequelize.define('Usuario', {
   id_usuario: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+    field: 'id_usuario',
   },
-  nombre: DataTypes.STRING,
-  apellido: DataTypes.STRING,
-  correo: {
-    type: DataTypes.STRING,
-    unique: true,
-  },
-  contrasena: DataTypes.STRING,
-  telefono: DataTypes.STRING,
+  nombre: { type: DataTypes.STRING, field: 'nombre' },
+  correo: { type: DataTypes.STRING, unique: true, field: 'email' },
+  contrasena: { type: DataTypes.STRING, field: 'password' },
+  rut: { type: DataTypes.STRING, field: 'rut' },
+  imagen_perfil: { type: DataTypes.BLOB('medium'), field: 'imagen_perfil' },
+  imagen_nombre: { type: DataTypes.STRING, field: 'imagen_nombre' },
 });
 
-const Producto = sequelize.define("Producto", {
-  id_producto: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  nombre: DataTypes.STRING,
-  descripcion: DataTypes.STRING,
-  precio: DataTypes.FLOAT,
-  stock: DataTypes.INTEGER,
-  imagen: DataTypes.STRING,
+const Producto = sequelize.define('Producto', {
+  id_producto: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, field: 'id_producto' },
+  nombre: { type: DataTypes.STRING, field: 'nombre' },
+  descripcion: { type: DataTypes.STRING, field: 'descripcion' },
+  precio: { type: DataTypes.FLOAT, field: 'precio' },
+  stock: { type: DataTypes.INTEGER, field: 'stock' },
+  imagen: { type: DataTypes.STRING, field: 'imagen' },
 });
 
-const Pedido = sequelize.define("Pedido", {
-  id_pedido: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  total: DataTypes.FLOAT,
-  fecha: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+const Pedido = sequelize.define('Pedido', {
+  id_pedido: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, field: 'id_pedido' },
+  total: { type: DataTypes.FLOAT, field: 'total' },
+  fecha: { type: DataTypes.DATE, defaultValue: DataTypes.NOW, field: 'fecha_pedido' },
 });
 
-const DetallePedido = sequelize.define("DetallePedido", {
-  id_detalle: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  cantidad: DataTypes.INTEGER,
-  subtotal: DataTypes.FLOAT,
+const DetallePedido = sequelize.define('DetallePedido', {
+  id_detalle: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true, field: 'id_detalle' },
+  cantidad: { type: DataTypes.INTEGER, field: 'cantidad' },
+  subtotal: { type: DataTypes.FLOAT, field: 'subtotal' },
 });
 
-Usuario.hasMany(Pedido, { foreignKey: "id_usuario" });
-Pedido.belongsTo(Usuario, { foreignKey: "id_usuario" });
+Usuario.hasMany(Pedido, { foreignKey: 'id_usuario' });
+Pedido.belongsTo(Usuario, { foreignKey: 'id_usuario' });
 
-Pedido.hasMany(DetallePedido, { foreignKey: "id_pedido" });
-DetallePedido.belongsTo(Pedido, { foreignKey: "id_pedido" });
+Pedido.hasMany(DetallePedido, { foreignKey: 'id_pedido' });
+DetallePedido.belongsTo(Pedido, { foreignKey: 'id_pedido' });
 
-Producto.hasMany(DetallePedido, { foreignKey: "id_producto" });
-DetallePedido.belongsTo(Producto, { foreignKey: "id_producto" });
+Producto.hasMany(DetallePedido, { foreignKey: 'id_producto' });
+DetallePedido.belongsTo(Producto, { foreignKey: 'id_producto' });
 
 const generarToken = (usuario) => {
-  return jwt.sign(
-    { id: usuario.id_usuario, correo: usuario.correo },
-    process.env.JWT_SECRET || "tokyo_secret",
-    { expiresIn: "2h" }
-  );
+  return jwt.sign({ id: usuario.id_usuario, correo: usuario.correo }, process.env.JWT_SECRET || 'tokyo_secret', { expiresIn: '2h' });
 };
 
 
-app.get("/api/health", async (req, res) => {
+app.get('/api/health', async (req, res) => {
   try {
     await sequelize.authenticate();
-    res.json({ ok: true, msg: "Conexión a MySQL exitosa" });
+    res.json({ ok: true, msg: 'Conexión a MySQL exitosa' });
   } catch (err) {
     res.status(500).json({ ok: false, error: err.message });
   }
 });
 
-app.post("/api/auth/register", async (req, res) => {
+app.post('/api/auth/register', async (req, res) => {
   try {
-    const { nombre, apellido, correo, contrasena, telefono } = req.body;
+    const { nombre, correo, contrasena, rut } = req.body;
 
     const existente = await Usuario.findOne({ where: { correo } });
-    if (existente)
-      return res.status(400).json({ error: "El correo ya está registrado" });
+    if (existente) return res.status(400).json({ error: 'El correo ya está registrado' });
 
     const hash = await bcrypt.hash(contrasena, 10);
-    const nuevo = await Usuario.create({
-      nombre,
-      apellido,
-      correo,
-      contrasena: hash,
-      telefono,
-    });
+    const nuevo = await Usuario.create({ nombre, correo, contrasena: hash, rut });
 
-    res.json({ msg: "Usuario registrado", usuario: nuevo });
+    res.json({ msg: 'Usuario registrado', usuario: nuevo });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.post("/api/auth/login", async (req, res) => {
+app.post('/api/auth/login', async (req, res) => {
   try {
     const { correo, contrasena } = req.body;
     const usuario = await Usuario.findOne({ where: { correo } });
 
-    if (!usuario)
-      return res.status(400).json({ error: "Correo o contraseña incorrectos" });
+    if (!usuario) return res.status(400).json({ error: 'Correo o contraseña incorrectos' });
 
     const valido = await bcrypt.compare(contrasena, usuario.contrasena);
-    if (!valido)
-      return res.status(400).json({ error: "Correo o contraseña incorrectos" });
+    if (!valido) return res.status(400).json({ error: 'Correo o contraseña incorrectos' });
 
     const token = generarToken(usuario);
-    res.json({ msg: "Login exitoso", token });
+    res.json({ msg: 'Login exitoso', token });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
 const authMiddleware = (req, res, next) => {
-  const header = req.headers["authorization"];
-  if (!header) return res.status(403).json({ error: "Token requerido" });
-  const token = header.split(" ")[1];
+  const header = req.headers['authorization'];
+  if (!header) return res.status(403).json({ error: 'Token requerido' });
+  const token = header.split(' ')[1];
   try {
-    const dec = jwt.verify(token, process.env.JWT_SECRET || "tokyo_secret");
+    const dec = jwt.verify(token, process.env.JWT_SECRET || 'tokyo_secret');
     req.user = dec;
     next();
   } catch {
-    res.status(401).json({ error: "Token inválido o expirado" });
+    res.status(401).json({ error: 'Token inválido o expirado' });
   }
 };
 
-app.get("/api/productos", async (req, res) => {
+app.get('/api/productos', async (req, res) => {
   const productos = await Producto.findAll();
   res.json(productos);
 });
 
-app.get("/api/productos/:id", async (req, res) => {
+app.get('/api/productos/:id', async (req, res) => {
   const prod = await Producto.findByPk(req.params.id);
-  if (!prod) return res.status(404).json({ error: "Producto no encontrado" });
+  if (!prod) return res.status(404).json({ error: 'Producto no encontrado' });
   res.json(prod);
 });
 
-app.post("/api/pedidos", authMiddleware, async (req, res) => {
+app.post('/api/pedidos', authMiddleware, async (req, res) => {
   const { detalles } = req.body;
   const usuarioId = req.user.id;
 
@@ -186,37 +159,25 @@ app.post("/api/pedidos", authMiddleware, async (req, res) => {
 
     for (const d of detalles) {
       const producto = await Producto.findByPk(d.id_producto);
-      await DetallePedido.create(
-        {
-          id_pedido: pedido.id_pedido,
-          id_producto: producto.id_producto,
-          cantidad: d.cantidad,
-          subtotal: producto.precio * d.cantidad,
-        },
-        { transaction: t }
-      );
+      await DetallePedido.create({ id_pedido: pedido.id_pedido, id_producto: producto.id_producto, cantidad: d.cantidad, subtotal: producto.precio * d.cantidad }, { transaction: t });
 
-      await producto.update(
-        { stock: producto.stock - d.cantidad },
-        { transaction: t }
-      );
+      await producto.update({ stock: producto.stock - d.cantidad }, { transaction: t });
     }
 
     await t.commit();
-    res.json({ msg: "Pedido creado con éxito", pedido });
+    res.json({ msg: 'Pedido creado con éxito', pedido });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-app.get("/api/perfil", authMiddleware, async (req, res) => {
-  const usuario = await Usuario.findByPk(req.user.id, {
-    attributes: { exclude: ["contrasena"] },
-  });
+app.get('/api/perfil', authMiddleware, async (req, res) => {
+  const usuario = await Usuario.findByPk(req.user.id, { attributes: { exclude: ['contrasena'] } });
   res.json(usuario);
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.API_PORT || process.env.PORT || 3001;
 sequelize.sync({ alter: true }).then(() => {
   app.listen(PORT, () => console.log(` API ejecutándose en puerto ${PORT}`));
 });
+
