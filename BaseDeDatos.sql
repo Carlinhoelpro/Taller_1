@@ -21,6 +21,10 @@ CREATE TABLE usuarios (
     FOREIGN KEY (id_rol) REFERENCES roles(id_rol)
 );
 
+ALTER TABLE usuarios
+ADD COLUMN google_id VARCHAR(255) NULL AFTER imagen_nombre;
+CREATE INDEX idx_usuarios_google_id ON usuarios(google_id);
+
 CREATE TABLE categorias (
     id_categoria INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL
@@ -106,3 +110,9 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+CREATE TABLE IF NOT EXISTS sessions (
+    session_id VARCHAR(128) NOT NULL PRIMARY KEY,
+    expires INT(11) UNSIGNED NOT NULL,
+    data TEXT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
