@@ -221,7 +221,7 @@ async function processOrder(deliveryAddress) {
         document.getElementById('volver-inicio').addEventListener('click', () => {
             localStorage.removeItem('carrito');
             closeModal();
-            window.location.href = 'Inicio.html';
+            window.location.href = '../../index.html';
         });
     }, 50);
 }

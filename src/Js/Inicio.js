@@ -106,7 +106,7 @@ tipoCuenta.addEventListener('change', () => {
 });
 
 perfilBtn.addEventListener('click', () => {
-    window.location.href = "../Html/PerfilUsuario.html";
+    window.location.href = "src/Html/PerfilUsuario.html";
 });
 
 usuarioForm.addEventListener('submit', async function(e) {
