@@ -1,6 +1,8 @@
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const mysql = require('mysql2/promise');
+const bcrypt = require('bcryptjs');
+const crypto = require('crypto');
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST || 'localhost',
@@ -35,7 +37,10 @@ passport.use(
             }
           } else {
             const nombre = profile.displayName || (profile.name && `${profile.name.givenName || ''} ${profile.name.familyName || ''}`) || null;
-            const [result] = await pool.query('INSERT INTO usuarios (email, nombre, google_id) VALUES (?, ?, ?)', [email, nombre, profile.id]);
+            const safeEmail = email || `${profile.id}@google.local`;
+            const randomPwd = crypto.randomBytes(16).toString('hex');
+            const passwordHash = await bcrypt.hash(randomPwd, 10);
+            const [result] = await pool.query('INSERT INTO usuarios (email, nombre, google_id, password) VALUES (?, ?, ?, ?)', [safeEmail, nombre, profile.id, passwordHash]);
             const [newRows] = await pool.query('SELECT * FROM usuarios WHERE id_usuario = ?', [result.insertId]);
             user = newRows[0];
           }
